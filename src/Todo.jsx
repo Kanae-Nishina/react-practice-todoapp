@@ -3,8 +3,8 @@ import './style.css';
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
-  const [incompleteTodos, setIncompleteTodos] = useState(["TODOです１", "TODOです２"]);
-  const [completeTodos, setCompleteTodos] = useState(["TODOでした１", "TODOでした２"]);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
@@ -18,9 +18,10 @@ export const Todo = () => {
   const onClickComplete = (index) => {
     const newIncompleteTodos = [...incompleteTodos];
     newIncompleteTodos.splice(index,1);
-    setIncompleteTodos(newIncompleteTodos);
 
     const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+
+    setIncompleteTodos(newIncompleteTodos);
     setCompleteTodos(newCompleteTodos);
   };
 
@@ -28,6 +29,16 @@ export const Todo = () => {
     const newTodos = [...incompleteTodos];
     newTodos.splice(index,1);
     setIncompleteTodos(newTodos);
+  };
+
+  const onClickBack = (index) => {
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index,1);
+
+    const newIncompleteTodos = [...incompleteTodos,completeTodos[index]];
+
+    setCompleteTodos(newCompleteTodos);
+    setIncompleteTodos(newIncompleteTodos);
   };
 
   return (
@@ -54,11 +65,11 @@ export const Todo = () => {
       <div className='complete-area'>
         <p className='title'>完了のTODO</p>
         <ul>
-          {completeTodos.map((todo)=> (
-            <li>
+          {completeTodos.map((todo,index)=> (
+            <li key={todo}>
               <div className='list-row'>
                 <p className='todo-item'>{todo}</p>
-                <button>戻す</button>
+                <button onClick = {()=>onClickBack(index)}>戻す</button>
               </div>
             </li>
           ))}
