@@ -45,6 +45,11 @@ export const Todo = () => {
     setIncompleteTodos(newIncompleteTodos);
   };
 
+  const checkTask = (todo) => {
+    if (todo.complete) return `- [x] ${todo.text}`;
+    else return `- [ ] ${todo.text}`;
+  }
+
   return (
     <>
       <InputTodo
@@ -52,12 +57,27 @@ export const Todo = () => {
         onChange={onChangeTodoText}
         onClick={onClickAdd} />
       <IncompleteTodo
-        todos = {incompleteTodos}
+        todos={incompleteTodos}
         onClickComplete={onClickComplete}
         onClickDelete={onClickDelete} />
       <CompleteTodos
-        todos = {completeTodos}
-        onClickBack = {onClickBack} />
+        todos={completeTodos}
+        onClickBack={onClickBack} />
+      <div className='TodoforMattermost'>
+        <h4>Mattermost用</h4>
+        <p>#### 今週がんばること</p>
+        {completeTodos.map((todo) => (
+          <p key={todo}>
+            - [x] {todo}
+          </p>
+        ))
+        }
+        {incompleteTodos.map((todo) => (
+          <p key={todo}>
+            - [ ] {todo}
+          </p>
+        ))}
+      </div>
     </>
   );
 }

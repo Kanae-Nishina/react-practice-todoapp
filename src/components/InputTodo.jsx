@@ -4,6 +4,7 @@ import '../style.css'
 const style = {
   backgroundColor: "#c6e5d9",
   width: "400px",
+  maxWidth: "100%",
   height: "30px",
   padding: "8px",
   margin: "8px",
