@@ -1,3 +1,5 @@
+/* リセットCSS */
+
 body {
     font-family: sans-serif;
     color: #666;
@@ -23,31 +25,14 @@ button:hover {
     cursor: pointer;
 }
 
-.input-area {
-    background-color: #c6e5d9;
-    width: 400px;
-    height: 30px;
-    padding: 8px;
-    margin: 8px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-}
-
-.input-area input{
+input.input-area {
     margin-right: 2px;
+    transition: all 0.3s;
+    outline: transparent solid 2px;
 }
 
-.input-area input:focus-visible {
+input.input-area:focus-visible {
     outline: #79a97d solid 2px;
-}
-
-.incomplete-area {
-    border: 2px solid #aacfd0;
-    width: 400px;
-    min-height: 200px;
-    padding: 8px;
-    margin: 8px;
-    border-radius: 8px;
 }
 
 .complete-area {
