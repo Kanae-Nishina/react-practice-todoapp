@@ -45,10 +45,18 @@ export const Todo = () => {
     setIncompleteTodos(newIncompleteTodos);
   };
 
-  const checkTask = (todo) => {
-    if (todo.complete) return `- [x] ${todo.text}`;
-    else return `- [ ] ${todo.text}`;
-  }
+  const onClickSend = async () => {
+    await fetch('http://localhost:5000/',{
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({text: "Reactからのテスト投稿成功 :react: "}),
+    })
+      .then((res) => res.json())
+      .then((data)=> console.log(data));
+  };
 
   return (
     <>
@@ -77,6 +85,7 @@ export const Todo = () => {
             - [ ] {todo}
           </p>
         ))}
+        <button onClick={() => onClickSend()}>Mattermostに送信する</button>
       </div>
     </>
   );
