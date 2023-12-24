@@ -4,7 +4,7 @@ const style = {
   maxWidth: "100%",
   minHeight: "200px",
   padding: "8px",
-  margin: "8px",
+  margin: "8px auto",
   borderRadius: "8px",
   backgroundColor: "#c9dede"
 };

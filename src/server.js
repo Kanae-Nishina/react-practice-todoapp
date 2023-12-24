@@ -13,10 +13,10 @@ app.get("/", (req, res) => {
 
 app.post("/", function (req, res) {
   try {
-    const matterRes = axios.post(
-      'https://chat.runteq.jp/hooks/d1ns3ac6gpg9xx8fi9ayc48a8h',
+    const data = axios.post(
+      req.body.url,
       {
-        'text': req.body.text,
+        "text": req.body.text,
       },
       {
         headers: {
@@ -24,7 +24,7 @@ app.post("/", function (req, res) {
         }
       }
     );
-    res.json({result: matterRes});
+    res.json({result: data});
   } catch (error) {
     console.log(error);
   }

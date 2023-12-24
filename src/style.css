@@ -1,6 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: sans-serif;
   color: #666;
+  font-size: 1.6rem;
+}
+
+main {
+  margin:auto;
+  padding: 50px 0 100px;
+  width: 500px;
+  max-width: 100%;
+  position: relative;
+  word-break: break-word;
 }
 
 input {
@@ -23,14 +41,31 @@ button:hover {
   cursor: pointer;
 }
 
+button.blue:hover {
+  background-color: #7984a9;
+  color: #fff;
+  cursor: pointer;
+}
+
 input.input-area {
-  margin-right: 2px;
   transition: all 0.3s;
   outline: transparent solid 2px;
 }
 
 input.input-area:focus-visible {
   outline: #79a97d solid 2px;
+}
+
+input.input-area.blue {
+  margin: 8px;
+}
+
+input.input-area.blue.mg-left-0 {
+  margin-left: 0;
+}
+
+input.input-area.blue:focus-visible {
+  outline: #7984a9 solid 2px;
 }
 
 .title {
@@ -48,29 +83,41 @@ input.input-area:focus-visible {
   margin: 6px;
 }
 
-.TodoforMattermost {
-  border: 2px solid rgb(146, 146, 221);
+select {
+  padding: 6px 16px;
+  border: none;
   border-radius: 8px;
-  width: 400px;
-  max-width: 100%;
-  padding: 8px;
-  margin: 8px;
 }
 
-.TodoforMattermost h4{
-  margin: 3px;
+select:focus{
+  outline: none;
+}
+
+select option{
+  border: none;
+}
+
+textarea{
+  display: block;
+  width: 100%;
+  height: calc(2.65rem * 2);
+  padding: 6px 16px;
+  border: none;
+  border-radius: 8px;
+  margin: 8px auto;
+}
+
+textarea:focus{
+  outline: #7984a9 solid 2px;
+}
+
+footer {
+  display: block;
+  width: 100%;
   text-align: center;
-}
-
-.TodoforMattermost p{
-  font-size: 15px;
-  margin: 0;
+  margin: 50px auto;
 }
 
 pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  padding: 10px;
-  width: 100%;
   overflow-x: auto;
 }

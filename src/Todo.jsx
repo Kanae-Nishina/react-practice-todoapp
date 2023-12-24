@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { InputTodo } from './components/InputTodo';
 import { IncompleteTodo } from './components/IncompleteTodos';
 import { CompleteTodos } from './components/CompleteTodos';
+import { SendWebhook } from './components/SendWebhook';
 
 import './style.css';
 
@@ -45,21 +46,9 @@ export const Todo = () => {
     setIncompleteTodos(newIncompleteTodos);
   };
 
-  const onClickSend = async () => {
-    await fetch('http://localhost:5000/',{
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({text: "Reactからのテスト投稿成功 :react: "}),
-    })
-      .then((res) => res.json())
-      .then((data)=> console.log(data));
-  };
-
   return (
     <>
+      <h1 style={{ textAlign: "center" }}>TODOアプリ</h1>
       <InputTodo
         todoText={todoText}
         onChange={onChangeTodoText}
@@ -71,22 +60,15 @@ export const Todo = () => {
       <CompleteTodos
         todos={completeTodos}
         onClickBack={onClickBack} />
-      <div className='TodoforMattermost'>
-        <h4>Mattermost用</h4>
-        <p>#### 今週がんばること</p>
-        {completeTodos.map((todo) => (
-          <p key={todo}>
-            - [x] {todo}
-          </p>
-        ))
-        }
-        {incompleteTodos.map((todo) => (
-          <p key={todo}>
-            - [ ] {todo}
-          </p>
-        ))}
-        <button onClick={() => onClickSend()}>Mattermostに送信する</button>
-      </div>
+      <SendWebhook
+        completeTodos={completeTodos}
+        incompleteTodos={incompleteTodos} />
+      <footer>
+        <p>
+          作成者<br />とぴ <a href="https://twitter.com/topi_log" target='_blank'>X</a> <a href="https://github.com/Kanae-Nishina/react-practice-todoapp" target='_blank'>Github</a></p>
+        <p>
+          参考<br /><a href="https://www.udemy.com/course/modern_javascipt_react_beginner/" target='_blank'>【最新ver対応済】<br />モダンJavaScriptの基礎から始める挫折しないためのReact入門</a></p>
+      </footer>
     </>
   );
 }
