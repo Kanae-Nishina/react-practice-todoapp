@@ -29,7 +29,7 @@ export const SendWebhook = (props) => {
   const onChangeAfterComment = (event) => setAfterComment(event.target.value);
 
   const onClickSend = async () => {
-    if(completeTodos.length === 0 && incompleteTodos.length === 0 || webhookUrl.length === 0) return;
+    if((completeTodos.length === 0 && incompleteTodos.length === 0) || webhookUrl.length === 0) return;
 
     let msg = `${beforeComment}\n${heading} ${headingText}\n`;
     completeTodos.forEach((todo) => {
