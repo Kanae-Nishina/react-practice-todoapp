@@ -48,7 +48,7 @@ export const Todo = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>TODOアプリ</h1>
+      <h1 style={{ textAlign: "center" }}><img src="192x192.png" alt="TODO" /></h1>
       <InputTodo
         todoText={todoText}
         onChange={onChangeTodoText}
@@ -65,9 +65,9 @@ export const Todo = () => {
         incompleteTodos={incompleteTodos} />
       <footer>
         <p>
-          作成者<br />とぴ <a href="https://twitter.com/topi_log" target='_blank'>X</a> <a href="https://github.com/Kanae-Nishina/react-practice-todoapp" target='_blank'>Github</a></p>
+          作成者<br />とぴ <a href="https://twitter.com/topi_log" target='_blank' rel="noreferrer">X</a> <a href="https://github.com/Kanae-Nishina/react-practice-todoapp" target='_blank' rel="noreferrer">Github</a></p>
         <p>
-          参考<br /><a href="https://www.udemy.com/course/modern_javascipt_react_beginner/" target='_blank'>【最新ver対応済】<br />モダンJavaScriptの基礎から始める挫折しないためのReact入門</a></p>
+          参考<br /><a href="https://www.udemy.com/course/modern_javascipt_react_beginner/" target='_blank' rel="noreferrer">【最新ver対応済】<br />モダンJavaScriptの基礎から始める挫折しないためのReact入門</a></p>
       </footer>
     </>
   );

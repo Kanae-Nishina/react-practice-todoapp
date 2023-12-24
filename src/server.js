@@ -7,10 +7,6 @@ const axios = require("axios");
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.post("/", function (req, res) {
   try {
     const data = axios.post(
