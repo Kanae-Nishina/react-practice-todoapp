@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { InputTodo } from './components/InputTodo';
 import { IncompleteTodo } from './components/IncompleteTodos';
 import { CompleteTodos } from './components/CompleteTodos';
@@ -8,8 +9,13 @@ import './style.css';
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
-  const [incompleteTodos, setIncompleteTodos] = useState([]);
-  const [completeTodos, setCompleteTodos] = useState([]);
+
+  const [cookies, setCookie] = useCookies(['incompleteTodos','completeTodos']);
+  const getCookieIncompleteTodos = cookies.incompleteTodos ? cookies.incompleteTodos.split(','):[];
+  const [incompleteTodos, setIncompleteTodos] = useState(getCookieIncompleteTodos);
+
+  const getCookieCompleteTodos = cookies.completeTodos ? cookies.completeTodos.split(','):[];
+  const [completeTodos, setCompleteTodos] = useState(getCookieCompleteTodos);
 
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
@@ -62,7 +68,9 @@ export const Todo = () => {
         onClickBack={onClickBack} />
       <SendWebhook
         completeTodos={completeTodos}
-        incompleteTodos={incompleteTodos} />
+        incompleteTodos={incompleteTodos}
+        setIncompleteTodos={setIncompleteTodos}
+        setCompleteTodos={setCompleteTodos} />
       <footer>
         <p>
           作成者<br />とぴ <a href="https://twitter.com/topi_log" target='_blank' rel="noreferrer">X</a> <a href="https://github.com/Kanae-Nishina/react-practice-todoapp" target='_blank' rel="noreferrer">Github</a></p>

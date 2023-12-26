@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { functions } from "../firebase"
 import { httpsCallable } from "firebase/functions";
+import React from 'react';
+import { useCookies } from 'react-cookie';
 
 const areaStyle = {
   border: "2px solid rgb(146, 146, 221)",
@@ -13,26 +15,29 @@ const areaStyle = {
 };
 
 export const SendWebhook = (props) => {
-  const { completeTodos, incompleteTodos } = props;
+  const { completeTodos, incompleteTodos, setIncompleteTodos, setCompleteTodos} = props;
   const [headingText, setHeadingText] = useState("");
   const [heading, setHeading] = useState("#");
-  const [webhookUrl, setWebhookUrl] = useState("");
   const [beforeComment, setBeforeComment] = useState("");
   const [afterComment, setAfterComment] = useState("");
+  const [cookies, setCookie,removeCookie] = useCookies(['WebhookUrl','incompleteTodos','completeTodos']);
+  const getCookies = cookies.WebhookUrl ?? "";
+  const [webhookUrl, setWebhookUrl] = useState(getCookies);
 
   const onChangeHeadingText = (event) => setHeadingText(event.target.value);
 
   const onChangeHeading = (event) => setHeading(event.target.value);
 
-  const onChangeWebhookUrl = (event) => setWebhookUrl(event.target.value);
+  const onChangeWebhookUrl = (event) => {
+    setWebhookUrl(event.target.value);
+  };
 
   const onChangeBeforeComment = (event) => setBeforeComment(event.target.value);
 
   const onChangeAfterComment = (event) => setAfterComment(event.target.value);
 
-  const onClickSend = () => {
+  const sendData = () => {
     if((completeTodos.length === 0 && incompleteTodos.length === 0) || webhookUrl.length === 0) return;
-
     let msg = `${beforeComment}\n${heading} ${headingText}\n`;
     completeTodos.forEach((todo) => {
       msg += `- [x] ${todo}\n`;
@@ -52,8 +57,35 @@ export const SendWebhook = (props) => {
     }
   };
 
-  const wrapped = async () => {
-    await onClickSend();
+  const onClickSend = async () => {
+    await sendData();
+  };
+
+  const saveData = () => {
+    if(webhookUrl.length > 0){
+      setCookie('WebhookUrl',webhookUrl,{path: '/'});
+    }
+    if(incompleteTodos.length > 0){
+      setCookie('incompleteTodos',incompleteTodos.join(','),{path: '/'});
+    }
+
+    if(completeTodos.length > 0){
+      setCookie('completeTodos',completeTodos.join(','),{path: '/'});
+    }
+    alert('保存しました');
+  };
+
+  const removeData = () => {
+    setHeadingText("");
+    setHeading("#");
+    setBeforeComment("");
+    setAfterComment("");
+    setWebhookUrl("");
+    setIncompleteTodos([]);
+    setCompleteTodos([]);
+    removeCookie('WebhookUrl');
+    removeCookie('incompleteTodos');
+    removeCookie('completeTodos');
   };
 
   return (
@@ -89,8 +121,9 @@ export const SendWebhook = (props) => {
       </pre>
       <input className='input-area blue mg-left-0' placeholder='Webhookを入力' type="url"
         value={webhookUrl} onChange={onChangeWebhookUrl} />
-      <button className="blue" onClick={wrapped}>送信</button>
-      <p>確認用：{webhookUrl}</p>
+      <button className="blue" onClick={onClickSend}>送信</button>
+      <button className="blue" onClick={saveData}>データを保存</button>
+      <button className="blue" onClick={removeData}>データを削除</button>
     </div>
   );
 };
