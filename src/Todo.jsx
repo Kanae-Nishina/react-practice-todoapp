@@ -10,7 +10,7 @@ import './style.css';
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
 
-  const [cookies, setCookie] = useCookies(['incompleteTodos','completeTodos']);
+  const cookies = useCookies(['incompleteTodos','completeTodos']);
   const getCookieIncompleteTodos = cookies.incompleteTodos ? cookies.incompleteTodos.split(','):[];
   const [incompleteTodos, setIncompleteTodos] = useState(getCookieIncompleteTodos);
 

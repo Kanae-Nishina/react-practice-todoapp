@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { functions } from "../firebase"
 import { httpsCallable } from "firebase/functions";
-import React from 'react';
 import { useCookies } from 'react-cookie';
+import { WebhookModal } from "./WebhookModal";
 
 const areaStyle = {
   border: "2px solid rgb(146, 146, 221)",
@@ -21,8 +21,7 @@ export const SendWebhook = (props) => {
   const [beforeComment, setBeforeComment] = useState("");
   const [afterComment, setAfterComment] = useState("");
   const [cookies, setCookie,removeCookie] = useCookies(['WebhookUrl','incompleteTodos','completeTodos']);
-  const getCookies = cookies.WebhookUrl ?? "";
-  const [webhookUrl, setWebhookUrl] = useState(getCookies);
+  const [webhookUrl, setWebhookUrl] = useState(cookies.WebhookUrl ?? "");
 
   const onChangeHeadingText = (event) => setHeadingText(event.target.value);
 
@@ -37,7 +36,10 @@ export const SendWebhook = (props) => {
   const onChangeAfterComment = (event) => setAfterComment(event.target.value);
 
   const sendData = () => {
-    if((completeTodos.length === 0 && incompleteTodos.length === 0) || webhookUrl.length === 0) return;
+    if((completeTodos.length === 0 && incompleteTodos.length === 0) || webhookUrl.length === 0){
+      alert('TODOかWebhookURLがありません');
+      return;
+    }
     let msg = `${beforeComment}\n${heading} ${headingText}\n`;
     completeTodos.forEach((todo) => {
       msg += `- [x] ${todo}\n`;
@@ -51,8 +53,10 @@ export const SendWebhook = (props) => {
     const callFunction = httpsCallable(functions, "sendWebhook");
     try{
       const res = callFunction({ url: webhookUrl, text: msg});
+      alert('送信しました!');
       console.log(res);
     } catch(e) {
+      alert(`エラーが発生しました\n${e}`);
       console.log(e);
     }
   };
@@ -63,14 +67,14 @@ export const SendWebhook = (props) => {
 
   const saveData = () => {
     if(webhookUrl.length > 0){
-      setCookie('WebhookUrl',webhookUrl,{path: '/'});
+      setCookie('WebhookUrl',webhookUrl);
     }
     if(incompleteTodos.length > 0){
-      setCookie('incompleteTodos',incompleteTodos.join(','),{path: '/'});
+      setCookie('incompleteTodos',incompleteTodos.join(','));
     }
 
     if(completeTodos.length > 0){
-      setCookie('completeTodos',completeTodos.join(','),{path: '/'});
+      setCookie('completeTodos',completeTodos.join(','));
     }
     alert('保存しました');
   };
@@ -80,17 +84,23 @@ export const SendWebhook = (props) => {
     setHeading("#");
     setBeforeComment("");
     setAfterComment("");
-    setWebhookUrl("");
     setIncompleteTodos([]);
     setCompleteTodos([]);
-    removeCookie('WebhookUrl');
     removeCookie('incompleteTodos');
     removeCookie('completeTodos');
+  };
+
+  const removeWebhookUrl = () =>{
+    setWebhookUrl("");
+    removeCookie('WebhookUrl');
   };
 
   return (
     <div style={areaStyle}>
       <h4 className="title">Webhook</h4>
+      <div className="text-right">
+        <WebhookModal />
+      </div>
       <textarea placeholder="前書きを入力" value={beforeComment} onChange={onChangeBeforeComment} />
       <select onChange={onChangeHeading}>
         <option value="#">見出し１</option>
@@ -124,6 +134,8 @@ export const SendWebhook = (props) => {
       <button className="blue" onClick={onClickSend}>送信</button>
       <button className="blue" onClick={saveData}>データを保存</button>
       <button className="blue" onClick={removeData}>データを削除</button>
+      <button className="blue" onClick={removeWebhookUrl}>Webhookを削除</button>
+      <p><small>エラーが発生して送信ができなかった場合、エラー内容がアラートで表示されるかと思いますのでとぴのtimesに送ってくださると助かります！！</small></p>
     </div>
   );
 };
