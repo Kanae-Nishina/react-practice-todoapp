@@ -52,16 +52,16 @@ export const WebhookModal = () => {
         <div className="text-right"><button onClick={closeModal}>close</button></div>
         <h2>使い方</h2>
         <p>スマホでのWebhookURLの取得方法が分からなかったので、最初だけPCでWebhookを設定・取得することを推奨しています！</p>
-        <p>①Mattermostの左上、Channels左のアイコンを押す<img src="howto1.jpg" className="modal" /></p>
-        <p>②「統合機能」を選択<img src="howto2.jpg" className="modal" /></p>
-        <p>③「内向きのウェブフック」を選択<img src="howto3.jpg" className="modal" /></p>
-        <p>④「内向きのウェブフックを追加する」を選択<img src="howto4.jpg" className="modal" /></p>
+        <p>①Mattermostの左上、Channels左のアイコンを押す<img src="howto1.jpg" className="modal" alt="使い方①" /></p>
+        <p>②「統合機能」を選択<img src="howto2.jpg" className="modal" alt="使い方②" /></p>
+        <p>③「内向きのウェブフック」を選択<img src="howto3.jpg" className="modal" alt="使い方③" /></p>
+        <p>④「内向きのウェブフックを追加する」を選択<img src="howto4.jpg" className="modal" alt="使い方④" /></p>
         <p>⑤設定します。チャンネルは自分のtimesを選んでください。<br/>他人のtimesを使わないように！！！<br/>
         また、「このチャンネルに固定する」で他のチャンネルに投稿しないよう設定していてください。<br/>
         ここでの設定は後で編集もできます。
-        <img src="howto5.jpg" className="modal" /></p>
-        <p>⑥作成後、表示されるURLをコピーしてください。<img src="howto6.jpg" className="modal" /></p>
-        <p>⑦「Webhookを入力」欄にコピーしたURLを貼ります<img src="howto6.jpg" className="modal" /></p>
+        <img src="howto5.jpg" className="modal" alt="使い方⑤" /></p>
+        <p>⑥作成後、表示されるURLをコピーしてください。<img src="howto6.jpg" className="modal" alt="使い方⑥" /></p>
+        <p>⑦「Webhookを入力」欄にコピーしたURLを貼ります<img src="howto6.jpg" className="modal" alt="使い方⑦" /></p>
         <div className="text-right"><button onClick={closeModal}>close</button></div>
       </Modal>
     </div>

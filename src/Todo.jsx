@@ -10,7 +10,7 @@ import './style.css';
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
 
-  const cookies = useCookies(['incompleteTodos','completeTodos']);
+  const [cookies,setCookie, removeCookie] = useCookies(['incompleteTodos','completeTodos']);
   const getCookieIncompleteTodos = cookies.incompleteTodos ? cookies.incompleteTodos.split(','):[];
   const [incompleteTodos, setIncompleteTodos] = useState(getCookieIncompleteTodos);
 
@@ -70,7 +70,9 @@ export const Todo = () => {
         completeTodos={completeTodos}
         incompleteTodos={incompleteTodos}
         setIncompleteTodos={setIncompleteTodos}
-        setCompleteTodos={setCompleteTodos} />
+        setCompleteTodos={setCompleteTodos}
+        setTodosCookie={setCookie}
+        removeTodosCookie={removeCookie} />
       <footer>
         <p>
           作成者<br />とぴ <a href="https://twitter.com/topi_log" target='_blank' rel="noreferrer">X</a> <a href="https://github.com/Kanae-Nishina/react-practice-todoapp" target='_blank' rel="noreferrer">Github</a></p>
